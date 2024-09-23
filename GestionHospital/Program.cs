@@ -12,40 +12,52 @@ namespace GestionHospital
     /// </summary>
     internal class Program
     {
+        static List<Paciente> pacientes = new List<Paciente>();
+        static List<Medico> medicos = new List<Medico>();
+        static List<PersonalAdministrativo> personalAdministrativos = new List<PersonalAdministrativo>();
+
         /// <summary>
         /// Metodo principal de la aplicacion que se ejecuta al comenzar el rpograma
         /// </summary>
         /// <param name="args">Lista de argumentos para iniciar el metodo</param>
         static void Main(string[] args)
         {
+            medicos.Add(new Medico("Juan", 42, 2500));
             while (true)
             {
                 switch (Menu())
                 {
                     case 1:
+                        NuevoMedico();
                         break;
                     case 2:
+                        NuevoPaciente();
                         break;
                     case 3:
+                        NuevoAdministrativo();
                         break;
                     case 4:
+                        MostrarMedicos();
                         break;
                     case 5:
+                        MostrarPacientes();
                         break;
                     case 6:
+                        EliminarPaciente();
                         break;
                     case 7:
+                        MostrarPersonas();
                         break;
                     case 0:
                         return;
                 }
             }
         }
-
         /// <summary>
         /// Metodo que muestra el las opciones y gestiona la opcion que has elegido
         /// </summary>
         /// <returns>Devuelve la opcion del menu que el usuario elija</returns>
+
         static int Menu()
         {
             int option;
@@ -74,7 +86,113 @@ namespace GestionHospital
 
             return option;
         }
+        private static void NuevoMedico()
+        {
+            string nombre = PedirNombre();
+            int edad = PedirEdad(24, 70);
+            int sueldo = PedirSueldo();
 
+            medicos.Add(new Medico(nombre, edad, sueldo));
+        }
 
+        private static string PedirNombre()
+        {
+            Console.WriteLine("Escribe el nombre.");
+            return Console.ReadLine();
+        }
+        private static int PedirEdad(int min, int max)
+        {
+            Console.WriteLine("Escribe la edad.");
+            int edad;
+            while (!int.TryParse(Console.ReadLine(), out edad))
+                Console.WriteLine("Introduce un numero valido.");
+            if (edad < min)
+                edad = min;
+            else if (edad > max)
+                edad = max;
+            return edad;
+        }
+
+        private static int PedirSueldo()
+        {
+            Console.WriteLine("Escribe el sueldo.");
+            int sueldo;
+            while (!int.TryParse(Console.ReadLine(), out sueldo))
+                Console.WriteLine("Introduce un numero valido.");
+
+            if (sueldo < 1800)
+                sueldo = 1800;
+            return sueldo;
+        }
+
+        private static void NuevoPaciente()
+        {
+            string nombre = PedirNombre();
+            int edad = PedirEdad(0, 120);
+            string enfermedad = PedirEnfermedad();
+            Medico medico = PedirMedico();
+            pacientes.Add(new Paciente(nombre, edad, enfermedad, medico));
+        }
+
+        private static Medico PedirMedico()
+        {
+            MostrarMedicos();
+            Console.WriteLine("Escribe un numero que represente al medico que quieres.");
+            int indice;
+            while (!int.TryParse(Console.ReadLine(), out indice))
+                Console.WriteLine("Introduce un numero valido.");
+
+            indice++;
+
+            if(indice < 0)
+                indice = 0;
+            else if(indice >= medicos.Count)
+                indice = medicos.Count - 1;
+            return medicos[indice];
+        }
+
+        private static string PedirEnfermedad()
+        {
+            Console.WriteLine("Que enfermedad tiene?");
+            return Console.ReadLine();
+        }
+
+        private static void NuevoAdministrativo()
+        {
+            string nombre = PedirNombre();
+            int edad = PedirEdad(18, 75);
+            int sueldo = PedirSueldo();
+
+            personalAdministrativos.Add(new PersonalAdministrativo(nombre, edad, sueldo));
+        }
+
+        private static void MostrarMedicos()
+        {
+            foreach(Medico m in medicos)
+                Console.WriteLine(m.ToString());
+        }
+
+        private static void MostrarPacientes()
+        {
+            foreach(Paciente p in pacientes)
+                Console.WriteLine(p.ToString());
+        }
+
+        private static void EliminarPaciente()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void MostrarPersonas()
+        {
+            MostrarMedicos();
+            MostrarPacientes();
+            MostrarPersonalAdministrativo();
+        }
+        private static void MostrarPersonalAdministrativo()
+        {
+            foreach (PersonalAdministrativo p in personalAdministrativos)
+                Console.WriteLine(p.ToString());
+        }
     }
 }
