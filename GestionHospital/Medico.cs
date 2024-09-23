@@ -18,6 +18,10 @@ namespace GestionHospital
         public Medico(string nombre, int edad, int sueldo) : base(nombre, edad, sueldo)
         {
             Pacientes = new List<Paciente>();
-        } 
+        }
+        public override string ToString()
+        {
+            return $"Medico: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}";
+        }
     }
 }

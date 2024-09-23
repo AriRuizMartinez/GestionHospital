@@ -11,5 +11,9 @@ namespace GestionHospital
         public string Enfermedad {  get; set; }
         public Medico Medico { get; set; }
         public Paciente() { }
+        public override string ToString()
+        {
+            return $"Paciente: Nombre: {Nombre}, Edad: {Edad}, Enfermedad: {Enfermedad}, Medico: {Medico}"
+        }
     }
 }
