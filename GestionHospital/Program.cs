@@ -17,10 +17,15 @@ namespace GestionHospital
         static List<PersonalAdministrativo> personalAdministrativos = new List<PersonalAdministrativo>();
 
         /// <summary>
-        /// Metodo principal de la aplicacion que se ejecuta al comenzar el rpograma
+        /// Metodo principal de la aplicacion que se ejecuta al comenzar el programa y llama a la gestion del hospital
         /// </summary>
         /// <param name="args">Lista de argumentos para iniciar el metodo</param>
         static void Main(string[] args)
+        {
+            GestionDelHospital();
+        }
+
+        private static void GestionDelHospital()
         {
             medicos.Add(new Medico("Juan", 42, 2500));
             while (true)
@@ -53,6 +58,7 @@ namespace GestionHospital
                 }
             }
         }
+
         /// <summary>
         /// Metodo que muestra el las opciones y gestiona la opcion que has elegido
         /// </summary>
@@ -137,18 +143,22 @@ namespace GestionHospital
         private static Medico PedirMedico()
         {
             MostrarMedicos();
-            Console.WriteLine("Escribe un numero que represente al medico que quieres.");
+            int indice = PedirIndice(medicos.Count);
+            return medicos[indice];
+        }
+
+        private static int PedirIndice(int largoDeLaLista)
+        {
+            Console.WriteLine("Escribe un numero que represente a la persona que quieres.");
             int indice;
             while (!int.TryParse(Console.ReadLine(), out indice))
                 Console.WriteLine("Introduce un numero valido.");
-
-            indice++;
-
-            if(indice < 0)
+            ++indice;
+            if (indice < 0)
                 indice = 0;
-            else if(indice >= medicos.Count)
-                indice = medicos.Count - 1;
-            return medicos[indice];
+            else if (indice >= largoDeLaLista)
+                indice = largoDeLaLista - 1;
+            return indice;
         }
 
         private static string PedirEnfermedad()
@@ -174,19 +184,26 @@ namespace GestionHospital
 
         private static void MostrarPacientes()
         {
-            foreach(Paciente p in pacientes)
-                Console.WriteLine(p.ToString());
+            MostrarMedicos();
+            int indice = PedirIndice(medicos.Count);
+            medicos[indice].MostrarMisPacientes();
         }
 
         private static void EliminarPaciente()
         {
-            throw new NotImplementedException();
+            MostrarPacientes();
+            Console.WriteLine("Que paciente quieres eliminar?");
+            int indice = PedirIndice(pacientes.Count);
+            Paciente p = pacientes[indice];
+
+            pacientes.Remove(p);
+            p.QuitarDePacienteDeMiMedico();
         }
 
         private static void MostrarPersonas()
         {
-            MostrarMedicos();
             MostrarPacientes();
+            MostrarMedicos();
             MostrarPersonalAdministrativo();
         }
         private static void MostrarPersonalAdministrativo()

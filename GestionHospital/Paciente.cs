@@ -15,11 +15,17 @@ namespace GestionHospital
         {
             Enfermedad = enfermedad;
             Medico = medico;
+            medico.AñadirPaciente(this);
         }
 
         public override string ToString()
         {
             return $"Paciente: Nombre: {Nombre}, Edad: {Edad}, Enfermedad: {Enfermedad}, Medico: {Medico}";
+        }
+
+        public void QuitarDePacienteDeMiMedico()
+        {
+            Medico.EliminarPaciente(this);
         }
     }
 }
