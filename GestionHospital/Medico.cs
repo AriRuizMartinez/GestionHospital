@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GestionHospital
 {
+    /// <summary>
+    /// Clase publica que gestiona la informacion de un medico
+    /// </summary>
     public class Medico : PersonalHospital
     {
         public List<Paciente> Pacientes { get; set; }
@@ -21,16 +24,25 @@ namespace GestionHospital
             Especialidad = especialidad;
         }
 
+        /// <summary>
+        /// Metodo que añade un paciente
+        /// </summary>
         public void AñadirPaciente(Paciente paciente)
         {
             Pacientes.Add(paciente);
         }
 
+        /// <summary>
+        /// Metodo que elimina un paciente
+        /// </summary>
         public void EliminarPaciente(Paciente paciente)
         {
             Pacientes.Remove(paciente);
         }
 
+        /// <summary>
+        /// Metodo que muestra los pacientes de este medico
+        /// </summary>
         public void MostrarMisPacientes()
         {
             foreach (Paciente p in Pacientes)
@@ -42,6 +54,9 @@ namespace GestionHospital
         }
     }
 
+    /// <summary>
+    /// Enum que define las especialidades que puede tener un medico
+    /// </summary>
     public enum Especialidad
     {
         Cardiologia = 1,
