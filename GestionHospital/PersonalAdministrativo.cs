@@ -20,7 +20,7 @@ namespace GestionHospital
 
         public override string ToString()
         {
-            return $"Personal administrativo: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}";
+            return $"Personal administrativo: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}, Departamento: {Departamento}";
         }
     }
 

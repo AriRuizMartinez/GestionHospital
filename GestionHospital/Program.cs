@@ -274,7 +274,8 @@ namespace GestionHospital
         /// </summary>
         private static void MostrarMedicos()
         {
-            foreach(Medico m in medicos)
+            Console.WriteLine("");
+            foreach (Medico m in medicos)
                 Console.WriteLine(m.ToString());
         }
 
@@ -317,7 +318,8 @@ namespace GestionHospital
         /// </summary>
         private static void MostrarPacientes()
         {
-            foreach(Paciente p in pacientes)
+            Console.WriteLine("");
+            foreach (Paciente p in pacientes)
                 Console.WriteLine(p.ToString());
         }
 
@@ -326,6 +328,7 @@ namespace GestionHospital
         /// </summary>
         private static void MostrarPersonalAdministrativo()
         {
+            Console.WriteLine("");
             foreach (PersonalAdministrativo p in personalAdministrativos)
                 Console.WriteLine(p.ToString());
         }

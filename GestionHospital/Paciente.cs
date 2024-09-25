@@ -23,7 +23,7 @@ namespace GestionHospital
 
         public override string ToString()
         {
-            return $"Paciente: Nombre: {Nombre}, Edad: {Edad}, Enfermedad: {Enfermedad}, Medico: {Medico}";
+            return $"Paciente: Nombre: {Nombre}, Edad: {Edad}, Enfermedad: {Enfermedad}, {Medico}";
         }
 
         /// <summary>

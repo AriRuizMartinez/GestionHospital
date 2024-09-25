@@ -50,7 +50,7 @@ namespace GestionHospital
         }
         public override string ToString()
         {
-            return $"Medico: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}";
+            return $"Medico: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}, Especialidad: {Especialidad}";
         }
     }
 
