@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GestionHospital
 {
+    /// <summary>
+    /// Clase publica que gestiona la informacion de un personal administrativo
+    /// </summary>
     public class PersonalAdministrativo : PersonalHospital
     {
         public Departamento Departamento { get; set; }
@@ -21,6 +24,9 @@ namespace GestionHospital
         }
     }
 
+    /// <summary>
+    /// Enum que define los departamentos que puede tener un personal administrativo
+    /// </summary>
     public enum Departamento
     {
         Recepcion = 1,
