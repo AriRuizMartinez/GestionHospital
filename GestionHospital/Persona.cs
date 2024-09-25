@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GestionHospital
 {
+    /// <summary>
+    /// Clase publica que gestiona la informacion de una persona
+    /// </summary>
     public abstract class Persona
     {
         public string Nombre { get; set; }
