@@ -25,9 +25,12 @@ namespace GestionHospital
             GestionDelHospital();
         }
 
+        /// <summary>
+        /// Metodo que inicializa los medicos para no tener problemas y gestiona la logica del menu
+        /// </summary>
         private static void GestionDelHospital()
         {
-            medicos.Add(new Medico("Juan", 42, 2500));
+            medicos.Add(new Medico("Juan", 42, 2500, Especialidad.Cardiologia));
             while (true)
             {
                 switch (Menu())
@@ -45,7 +48,7 @@ namespace GestionHospital
                         MostrarMedicos();
                         break;
                     case 5:
-                        MostrarPacientes();
+                        MostrarPacientesDeUnMedico();
                         break;
                     case 6:
                         EliminarPaciente();
@@ -92,20 +95,32 @@ namespace GestionHospital
 
             return option;
         }
+
+        /// <summary>
+        /// Metodo que genera un nuevo medico pidiendo todos los parametros necesarios
+        /// </summary>
         private static void NuevoMedico()
         {
-            string nombre = PedirNombre();
-            int edad = PedirEdad(24, 70);
-            int sueldo = PedirSueldo();
-
-            medicos.Add(new Medico(nombre, edad, sueldo));
+            medicos.Add(new Medico(PedirNombre(), PedirEdad(24, 70), PedirSueldo(), PedirEspecialidad()));
         }
 
+
+        /// <summary>
+        /// Metodo que pide un nombre al usuario
+        /// </summary>
+        /// <returns>Devuelve el nombre que el usuario elija</returns>
         private static string PedirNombre()
         {
             Console.WriteLine("Escribe el nombre.");
             return Console.ReadLine();
         }
+
+        /// <summary>
+        /// Metodo que pide un numero al usuario y gestiona que este dentro de unos valores
+        /// </summary>
+        /// /// <param name="min">Valor minimo que debe cumplir la edad</param>
+        /// /// <param name="max">Valor maximo que debe cumplir la edad</param>
+        /// <returns>Devuelve el numero que el usuario elija</returns>
         private static int PedirEdad(int min, int max)
         {
             Console.WriteLine("Escribe la edad.");
@@ -119,6 +134,10 @@ namespace GestionHospital
             return edad;
         }
 
+        /// <summary>
+        /// Metodo que pide un sueldo al usuario
+        /// </summary>
+        /// <returns>Devuelve el sueldo que el usuario elija</returns>
         private static int PedirSueldo()
         {
             Console.WriteLine("Escribe el sueldo.");
@@ -131,15 +150,48 @@ namespace GestionHospital
             return sueldo;
         }
 
-        private static void NuevoPaciente()
+        /// <summary>
+        /// Metodo que pide una especialidad al usuario
+        /// </summary>
+        /// <returns>Devuelve la especialidad que el usuario elija</returns>
+        private static Especialidad PedirEspecialidad()
         {
-            string nombre = PedirNombre();
-            int edad = PedirEdad(0, 120);
-            string enfermedad = PedirEnfermedad();
-            Medico medico = PedirMedico();
-            pacientes.Add(new Paciente(nombre, edad, enfermedad, medico));
+            int option;
+
+            do
+            {
+                Console.WriteLine(@"
+┌────────────────────────────┐
+│       MENU  PRINCIPAL      │
+├────────────────────────────┤
+│  (1)  - Cardiologia        │
+│  (4)  - Pediatria          │
+│  (2)  - Dermatologia       │
+│  (3)  - Geriatria          │
+│  (5)  - Urologia           │
+└────────────────────────────┘
+");
+
+                if (!int.TryParse(Console.ReadLine(), out option))
+                    Console.WriteLine("Opcion invalida");
+
+            } while (option < 1 || option > 5);
+
+            return (Especialidad) option;
         }
 
+        /// <summary>
+        /// Metodo que genera un nuevo paciente pidiendo todos los parametros necesarios
+        /// </summary>
+        private static void NuevoPaciente()
+        {
+            pacientes.Add(new Paciente(PedirNombre(), PedirEdad(0, 120), PedirEnfermedad(), PedirMedico()));
+        }
+
+        /// <summary>
+        /// Metodo que devuelve un medico seleccionado por el usuario
+        /// </summary>
+        /// <returns>Devuelve el medico que el usuario elija</returns>
         private static Medico PedirMedico()
         {
             MostrarMedicos();
@@ -147,6 +199,11 @@ namespace GestionHospital
             return medicos[indice];
         }
 
+        /// <summary>
+        /// Metodo que pide un indice al usuario respecto a una lista y gestiona que los valores sean acepatables
+        /// </summary>
+        /// /// <param name="largoDeLaLista">Valor maximo excluyente que debe cumplir el indice</param>
+        /// <returns>Devuelve el indice que el usuario elija</returns>
         private static int PedirIndice(int largoDeLaLista)
         {
             Console.WriteLine("Escribe un numero que represente a la persona que quieres.");
@@ -161,34 +218,76 @@ namespace GestionHospital
             return indice;
         }
 
+        /// <summary>
+        /// Metodo que pide una enfermedad al usuario
+        /// </summary>
+        /// <returns>Devuelve la enfermedad que el usuario elija</returns>
         private static string PedirEnfermedad()
         {
             Console.WriteLine("Que enfermedad tiene?");
             return Console.ReadLine();
         }
 
+        /// <summary>
+        /// Metodo que genera un nuevo personal administrativo pidiendo todos los parametros necesarios
+        /// </summary>
         private static void NuevoAdministrativo()
         {
-            string nombre = PedirNombre();
-            int edad = PedirEdad(18, 75);
-            int sueldo = PedirSueldo();
-
-            personalAdministrativos.Add(new PersonalAdministrativo(nombre, edad, sueldo));
+            personalAdministrativos.Add(new PersonalAdministrativo(PedirNombre(), PedirEdad(18, 75), PedirSueldo(), PedirDepartamento()));
         }
 
+        /// <summary>
+        /// Metodo que pide un departamento al usuario
+        /// </summary>
+        /// <returns>Devuelve el departamento que el usuario elija</returns>
+        private static Departamento PedirDepartamento()
+        {
+            int option;
+
+            do
+            {
+                Console.WriteLine(@"
+┌────────────────────────────┐
+│       MENU  PRINCIPAL      │
+├────────────────────────────┤
+│  (1)  - Recepcion          │
+│  (4)  - Recursos Humanos   │
+│  (2)  - Finanzas           │
+│  (3)  - Legal              │
+│  (5)  - Logistica          │
+└────────────────────────────┘
+");
+
+                if (!int.TryParse(Console.ReadLine(), out option))
+                    Console.WriteLine("Opcion invalida");
+
+            } while (option < 1 || option > 5);
+
+            return (Departamento)option;
+        }
+
+        /// <summary>
+        /// Metodo que muestra los medicos
+        /// </summary>
         private static void MostrarMedicos()
         {
             foreach(Medico m in medicos)
                 Console.WriteLine(m.ToString());
         }
 
-        private static void MostrarPacientes()
+        /// <summary>
+        /// Metodo que muestra los pacientes de un medico concreto
+        /// </summary>
+        private static void MostrarPacientesDeUnMedico()
         {
             MostrarMedicos();
             int indice = PedirIndice(medicos.Count);
             medicos[indice].MostrarMisPacientes();
         }
 
+        /// <summary>
+        /// Metodo que elimina al paciente que el usuario escoga
+        /// </summary>
         private static void EliminarPaciente()
         {
             MostrarPacientes();
@@ -200,12 +299,28 @@ namespace GestionHospital
             p.QuitarDePacienteDeMiMedico();
         }
 
+        /// <summary>
+        /// Metodo que muestra todas la personas del hospital, desde pacientes a medicos pasando por personal administrativo
+        /// </summary>
         private static void MostrarPersonas()
         {
             MostrarPacientes();
             MostrarMedicos();
             MostrarPersonalAdministrativo();
         }
+
+        /// <summary>
+        /// Metodo que muestra todos los pacientes del hospital
+        /// </summary>
+        private static void MostrarPacientes()
+        {
+            foreach(Paciente p in pacientes)
+                Console.WriteLine(p.ToString());
+        }
+
+        /// <summary>
+        /// Metodo que muestra todos el personal administrativo del hospital
+        /// </summary>
         private static void MostrarPersonalAdministrativo()
         {
             foreach (PersonalAdministrativo p in personalAdministrativos)

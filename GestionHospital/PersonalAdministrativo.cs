@@ -8,12 +8,25 @@ namespace GestionHospital
 {
     public class PersonalAdministrativo : PersonalHospital
     {
+        public Departamento Departamento { get; set; }
         public PersonalAdministrativo() { }
-        public PersonalAdministrativo(string nombre, int edad, int sueldo) : base(nombre, edad, sueldo) { }
+        public PersonalAdministrativo(string nombre, int edad, int sueldo, Departamento departamento) : base(nombre, edad, sueldo) 
+        {
+            Departamento = departamento;
+        }
 
         public override string ToString()
         {
             return $"Personal administrativo: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}";
         }
+    }
+
+    public enum Departamento
+    {
+        Recepcion = 1,
+        RecursosHumanos = 2,
+        Finanzas = 3,
+        Legal = 4,
+        Logistica = 5
     }
 }

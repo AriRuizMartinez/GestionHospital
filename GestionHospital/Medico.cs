@@ -9,10 +9,16 @@ namespace GestionHospital
     public class Medico : PersonalHospital
     {
         public List<Paciente> Pacientes { get; set; }
+        public Especialidad Especialidad { get; set; }
 
         public Medico() : base()
         {
             Pacientes = new List<Paciente>();
+        }
+        public Medico(string nombre, int edad, int sueldo, Especialidad especialidad) : base(nombre, edad, sueldo)
+        {
+            Pacientes = new List<Paciente>();
+            Especialidad = especialidad;
         }
 
         public void AñadirPaciente(Paciente paciente)
@@ -25,11 +31,6 @@ namespace GestionHospital
             Pacientes.Remove(paciente);
         }
 
-        public Medico(string nombre, int edad, int sueldo) : base(nombre, edad, sueldo)
-        {
-            Pacientes = new List<Paciente>();
-        }
-
         public void MostrarMisPacientes()
         {
             foreach (Paciente p in Pacientes)
@@ -39,5 +40,14 @@ namespace GestionHospital
         {
             return $"Medico: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}";
         }
+    }
+
+    public enum Especialidad
+    {
+        Cardiologia = 1,
+        Pediatria = 2,
+        Dermatologia = 3,
+        Geriatria = 4,
+        Urologia = 5
     }
 }
