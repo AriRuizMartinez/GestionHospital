@@ -7,18 +7,30 @@ using System.Threading.Tasks;
 namespace GestionHospital
 {
     /// <summary>
+    /// Enum que define las especialidades que puede tener un medico
+    /// </summary>
+    public enum eEspecialidad
+    {
+        Cardiologia = 1,
+        Pediatria = 2,
+        Dermatologia = 3,
+        Geriatria = 4,
+        Urologia = 5
+    }
+
+    /// <summary>
     /// Clase publica que gestiona la informacion de un medico
     /// </summary>
     public class Medico : PersonalHospital
     {
         public List<Paciente> Pacientes { get; set; }
-        public Especialidad Especialidad { get; set; }
+        public eEspecialidad Especialidad { get; set; }
 
         public Medico() : base()
         {
             Pacientes = new List<Paciente>();
         }
-        public Medico(string nombre, int edad, int sueldo, Especialidad especialidad) : base(nombre, edad, sueldo)
+        public Medico(string nombre, int edad, int sueldo, eEspecialidad especialidad) : base(nombre, edad, sueldo)
         {
             Pacientes = new List<Paciente>();
             Especialidad = especialidad;
@@ -52,17 +64,5 @@ namespace GestionHospital
         {
             return $"Medico: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}, Especialidad: {Especialidad}";
         }
-    }
-
-    /// <summary>
-    /// Enum que define las especialidades que puede tener un medico
-    /// </summary>
-    public enum Especialidad
-    {
-        Cardiologia = 1,
-        Pediatria = 2,
-        Dermatologia = 3,
-        Geriatria = 4,
-        Urologia = 5
     }
 }

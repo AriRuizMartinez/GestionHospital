@@ -7,13 +7,25 @@ using System.Threading.Tasks;
 namespace GestionHospital
 {
     /// <summary>
+    /// Enum que define los departamentos que puede tener un personal administrativo
+    /// </summary>
+    public enum eDepartamento
+    {
+        Recepcion = 1,
+        RecursosHumanos = 2,
+        Finanzas = 3,
+        Legal = 4,
+        Logistica = 5
+    }
+
+    /// <summary>
     /// Clase publica que gestiona la informacion de un personal administrativo
     /// </summary>
     public class PersonalAdministrativo : PersonalHospital
     {
-        public Departamento Departamento { get; set; }
+        public eDepartamento Departamento { get; set; }
         public PersonalAdministrativo() { }
-        public PersonalAdministrativo(string nombre, int edad, int sueldo, Departamento departamento) : base(nombre, edad, sueldo) 
+        public PersonalAdministrativo(string nombre, int edad, int sueldo, eDepartamento departamento) : base(nombre, edad, sueldo) 
         {
             Departamento = departamento;
         }
@@ -22,17 +34,5 @@ namespace GestionHospital
         {
             return $"Personal administrativo: Nombre: {Nombre}, Edad: {Edad}, Sueldo: {Sueldo}, Departamento: {Departamento}";
         }
-    }
-
-    /// <summary>
-    /// Enum que define los departamentos que puede tener un personal administrativo
-    /// </summary>
-    public enum Departamento
-    {
-        Recepcion = 1,
-        RecursosHumanos = 2,
-        Finanzas = 3,
-        Legal = 4,
-        Logistica = 5
     }
 }
