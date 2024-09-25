@@ -12,8 +12,11 @@ namespace GestionHospital
     /// </summary>
     internal class Program
     {
+        //Variable que gestiona los pacientes del hospital
         static List<Paciente> pacientes = new List<Paciente>();
+        //Variable que gestiona los medicos del hospital
         static List<Medico> medicos = new List<Medico>();
+        //Variable que gestiona el personal administrativo del hospital
         static List<PersonalAdministrativo> personalAdministrativos = new List<PersonalAdministrativo>();
 
         /// <summary>
