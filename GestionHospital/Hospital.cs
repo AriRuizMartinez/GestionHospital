@@ -261,7 +261,7 @@ namespace GestionHospital
         private void MostrarPersonaTipoConcreto(Type tipo)
         {
             Console.WriteLine("");
-            List<Persona> personasTipo = personaList.Where(persona => tipo.IsInstanceOfType(persona.GetType())).ToList();
+            List<Persona> personasTipo = personaList.Where(persona => tipo.IsInstanceOfType(persona)).ToList();
             foreach (Persona persona in personasTipo)
                 Console.WriteLine(persona.ToString() );
         }
