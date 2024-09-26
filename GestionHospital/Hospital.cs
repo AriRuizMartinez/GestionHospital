@@ -46,6 +46,9 @@ namespace GestionHospital
                     case 7:
                         MostrarPersonas();
                         break;
+                    case 8:
+                        EliminarMedico();
+                        break;
                     case 0:
                         return;
                 }
@@ -74,6 +77,7 @@ namespace GestionHospital
 │  (5)  - Listar los pacientes de un medico      │
 │  (6)  - Eliminar a un paciente                 │
 │  (7)  - Ver la lista de personas del hospital  │
+│  (8)  - Eliminar a un medico                   │
 │  (0)  - Salir                                  │
 └────────────────────────────────────────────────┘
 ");
@@ -81,7 +85,7 @@ namespace GestionHospital
                 if (!int.TryParse(Console.ReadLine(), out option))
                     Console.WriteLine("Opcion invalida");
 
-            } while (option < 0 || option > 7);
+            } while (option < 0 || option > 8);
 
             return option;
         }
@@ -258,12 +262,13 @@ namespace GestionHospital
         /// Metodo que muestra las personas del tipo pasado por parametro
         /// </summary>
         /// /// <param name="tipo">Tipo debe cumplir la persona para ser listada</param>
-        private void MostrarPersonaTipoConcreto(Type tipo)
+        private int MostrarPersonaTipoConcreto(Type tipo)
         {
             Console.WriteLine("");
             List<Persona> personasTipo = personaList.Where(persona => tipo.IsInstanceOfType(persona)).ToList();
             foreach (Persona persona in personasTipo)
                 Console.WriteLine(persona.ToString() );
+            return personasTipo.Count;
         }
 
         /// <summary>
@@ -295,6 +300,36 @@ namespace GestionHospital
         {
             foreach(Persona persona in personaList)
                 Console.WriteLine(persona.ToString());
+        }
+
+        /// <summary>
+        /// Metodo que elimina un medico del hospital
+        /// </summary>
+        private void EliminarMedico()
+        {
+            int numeroMedicos = MostrarPersonaTipoConcreto(typeof (Medico));
+            if(numeroMedicos == 1)
+            {
+                Console.WriteLine("Siempre tiene que haber 1 medico en el hospital.");
+                return;
+            }
+
+            Medico m = (Medico) EncontrarPersona(typeof(Medico));
+            personaList.Remove(m);
+            Console.WriteLine("Los pacientes del medico seran asignados aleatoriamente a otros medicos.");
+            AsignarMedicos(m.Pacientes);
+        }
+
+        /// <summary>
+        /// Metodo que asigna medico a los pacientes del medico que se ha eliminado previamente
+        /// </summary>
+        private void AsignarMedicos(List<Paciente> pacientes)
+        {
+            Random r = new Random();
+            List<Persona> medicos = personaList.Where( p => p is Medico).ToList();
+
+            foreach(Paciente p in pacientes)
+                p.Medico = medicos[r.Next(0, medicos.Count)] as Medico;
         }
     }
 }

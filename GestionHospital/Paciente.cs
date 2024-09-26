@@ -12,7 +12,19 @@ namespace GestionHospital
     public class Paciente : Persona
     {
         public string Enfermedad {  get; set; }
-        public Medico Medico { get; set; }
+        public Medico medico;
+        public Medico Medico 
+        { 
+            get { return medico; } 
+            set 
+            {
+                if (medico != null)
+                    medico.EliminarPaciente(this);
+                medico = value;
+                if (medico != null) 
+                    medico.AñadirPaciente(this);
+            }
+        }
         public Paciente() { }
         public Paciente(string nombre, int edad, string enfermedad, Medico medico) : base(nombre, edad)
         {
