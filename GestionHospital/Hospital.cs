@@ -328,7 +328,7 @@ namespace GestionHospital
             Random r = new Random();
             List<Persona> medicos = personaList.Where( p => p is Medico).ToList();
 
-            foreach(Paciente p in pacientes)
+            foreach(Paciente p in pacientes.ToList())
                 p.Medico = medicos[r.Next(0, medicos.Count)] as Medico;
         }
     }
